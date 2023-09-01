@@ -1,10 +1,10 @@
 <template>
     <div v-bind:id="id">
-        <button @click="selectFiles">Selecione os arquivos</button>
+        <button @click="selectFiles">{{ label }}</button>
         <input class="file-input" type="file" multiple v-bind:disabled="disabled" 
             v-bind:accept="accept" @input="onChange($event)" title="Selecione">
         <div>
-            <label v-if="fileList.length > 0">Arquivos a enviar:</label>
+            <label v-if="fileList.length > 0">{{ title }}</label>
             <ul class="file-list">
                 <li v-for="(file, index) in fileList" :key="index">
                     <label @click="remove(index)">X</label>
@@ -45,6 +45,14 @@
                 required: true,
             },
             accept: String,
+            label: {
+                type: String,
+                default: 'Select',
+            },
+            title: {
+                type: String,
+                default: 'Files to upload',
+            },
         },
         emits: ["input", "update:modelValue"],
         setup(props, { emit }) {

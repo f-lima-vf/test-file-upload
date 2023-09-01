@@ -1,6 +1,6 @@
 <template>
   <div>
-    <VFileListInput @input="onChange" id="primeiro" accept=".txt, .csv, .md, .doc, .docx" v-model="value01">
+    <VFileListInput @input="onChange" id="primeiro" label="Selecione os arquivos" title="Arquivos a enviar" accept=".txt, .csv, .md, .doc, .docx" v-model="value01">
     </VFileListInput>
   </div>
   <p>Lista de arquivos a subir:</p>
