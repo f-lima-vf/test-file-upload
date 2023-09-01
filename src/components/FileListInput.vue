@@ -24,7 +24,6 @@
 <script>
     import { defineComponent, ref  } from 'vue'
     import UploadFile from './UploadFile.vue';
-    //import UploadFileList from './UploadFileList.vue';
     import axios from 'axios';
     
     export default defineComponent({

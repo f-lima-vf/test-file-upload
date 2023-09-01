@@ -6,9 +6,8 @@
 </template>
 
 <script>
-//import { ref } from 'vue'
+import { ref } from 'vue'
 import VFileListInput from './FileListInput.vue'
-import UploadFileList from './UploadFileList.vue'
 
 export default {
   name: 'HelloWorld',
@@ -19,7 +18,7 @@ export default {
     }
   },
   setup() {
-    let value01 = new UploadFileList()
+    let value01 = ref([])
 
     return {
       value01
