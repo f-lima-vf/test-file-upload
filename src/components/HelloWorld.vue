@@ -1,6 +1,6 @@
 <template>
   <div>
-    <VFileListInput @input="onChange" id="primeiro" accept="accept" :value="value01">
+    <VFileListInput @input="onChange" id="primeiro" accept="accept" v-model="value01">
     </VFileListInput>
   </div>
   <p>HelloWorld</p>

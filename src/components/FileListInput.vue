@@ -26,7 +26,6 @@
 <script>
     import { defineComponent, ref, onMounted } from 'vue';
     import UploadFile from './UploadFile.vue';
-    import axios from 'axios';
 
     export default defineComponent({
         props: {
@@ -65,22 +64,6 @@
                 //e.preventDefault();
             }
 
-            async function uploadFiles() {
-                for (const file of this.files) {
-                    const formData = new FormData();
-                    formData.append('file', file);
-
-                    try {
-                        const response = await axios.post('/upload', formData);
-                        // Handle success here
-                        console.log(response);
-                    } catch (error) {
-                        // Handle error here
-                        console.error(error);
-                    }
-                }
-            }
-
             onMounted(() => {
                 // window.addEventListener('remove', this.onRemove);
             });
@@ -90,7 +73,6 @@
                 files: [],
                 remove,
                 onChange,
-                uploadFiles,
             };
         },
     });
