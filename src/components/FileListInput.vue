@@ -54,20 +54,9 @@
         methods: {
             add(file) {
                 this.fileList.push(file);
-                this.renderList();
             },
             remove(fileIndex) {
                 this.fileList = this.fileList.filter((el) => el.index != fileIndex);
-                this.renderList();
-            },
-            renderList() {
-                let fileListElement = document.getElementById(this.id).children[1].children[0];
-                fileListElement.innerHTML = '';
-                let index = 0; 
-                this.fileList.forEach(file => {
-                    file.index = index++;
-                    fileListElement.innerHTML += `<li><label class="mdi-paperclip" onclick="window.dispatchEvent(new CustomEvent('remove', { detail: { item: ${ file.index } } }))">X</label><a href="${ file.url }" target="_blank">${ file.name }</a></li>`;
-                });
             },
             onChange(e) {
                 for (let el of e.target.files) {
