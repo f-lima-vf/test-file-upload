@@ -1,9 +1,9 @@
 <template>
   <div>
-    <VFileListInput @input="onChange" id="primeiro" accept="accept" v-model="value01">
+    <VFileListInput @input="onChange" id="primeiro" accept=".txt, .csv, .md, .doc, .docx" v-model="value01">
     </VFileListInput>
   </div>
-  <p>HelloWorld</p>
+  <p>Lista de arquivos a subir:</p>
   <ul class="file-list">
       <li v-for="(file, index) in value01" :key="index">
           <span>{{ file.name }} ({{ file.size }})</span>
@@ -15,6 +15,10 @@
   body {
     background-color: whitesmoke;
   }
+
+  #app {
+    text-align: left !important;
+  }
 </style>
 
 <script>
@@ -24,7 +28,7 @@ import VFileListInput from './file-input/FileListInput.vue'
 export default {
   name: 'HelloWorld',
   setup() {
-    const accept = ref('.txt, .csv, .md, .doc')
+    const accept = ref('.txt, .csv, .md, .doc, *.docx')
     const value01 = ref([]);
 
     function onChange(newValue) {
