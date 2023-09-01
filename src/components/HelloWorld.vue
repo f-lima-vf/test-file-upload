@@ -6,7 +6,7 @@
   <p>HelloWorld</p>
   <ul class="file-list">
       <li v-for="(file, index) in value01" :key="index">
-          <span>{{ file.name }}</span>
+          <span>{{ file.name }} ({{ file.size }})</span>
       </li>
   </ul>
 </template>

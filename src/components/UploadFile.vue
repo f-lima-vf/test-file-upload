@@ -1,17 +1,15 @@
 <script>
 import { ref, computed } from 'vue';
 
-export default function UploadFile(file) {
-  const _file = ref(file);
-  const _index = ref(-1);
-  const _name = ref(file.name);
-  const _type = ref(file.type);
-  const _url = ref(URL.createObjectURL(file));
-  const _size = ref(file.size);
-  const _bytesRead = ref(0);
-  const _bytes = ref([]);
+export default function UploadFile(f, idx) {
+  const _file = ref(f);
+  const _index = ref(idx);
+  const _name = ref(f.name);
+  const _type = ref(f.type);
+  const _url = ref(URL.createObjectURL(f));
+  const _size = ref(f.size);
 
-  const fileRef = computed(() => _file.value);
+  const file = computed(() => _file.value);
   const index = computed({
     get: () => _index.value,
     set: (value) => {
@@ -42,31 +40,14 @@ export default function UploadFile(file) {
       _size.value = value;
     },
   });
-  const bytesRead = computed({
-    get: () => _bytesRead.value,
-    set: (value) => {
-      _bytesRead.value = value;
-    },
-  });
-  const bytes = computed({
-    get: () => _bytes.value,
-    set: (value) => {
-      _bytes.value = value;
-    },
-  });
-
-  const percentDone = computed(() => Math.ceil(_bytesRead.value * 100 / _size.value));
 
   return {
-    file: fileRef,
+    file,
     index,
     name,
     type,
     url,
     size,
-    bytesRead,
-    bytes,
-    percentDone,
   };
 }
 </script>
