@@ -1,9 +1,9 @@
 <template>
   <div>
-    <VFileListInput @input="onChange" id="primeiro" label="Selecione os arquivos" title="Arquivos a enviar" accept=".txt, .csv, .md, .doc, .docx" v-model="value01">
+    <VFileListInput @input="onChange" id="upload-files-list" label="Select files" title="Files to upload" accept=".txt, .csv, .md, .doc, .docx" v-model="value01">
     </VFileListInput>
   </div>
-  <p>Lista de arquivos a subir:</p>
+  <p>Files to upload (list recored from the component):</p>
   <ul class="file-list">
       <li v-for="(file, index) in value01" :key="index">
           <span>{{ file.name }} ({{ file.size }})</span>

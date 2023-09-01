@@ -1,6 +1,6 @@
 <template>
     <div v-bind:id="id">
-        <button @click="selectFiles" v-bind:class="class">{{ label }}</button>
+        <button @click="selectFiles" v-bind:class="classes">{{ label }}</button>
         <input class="file-input" type="file" multiple v-bind:disabled="disabled" 
             v-bind:accept="accept" @input="onChange($event)" title="Selecione">
         <div>
@@ -54,7 +54,7 @@
                 type: String,
                 default: 'Files to upload',
             },
-            class: {
+            classes: {
                 type: String,
                 default: '',
             },
