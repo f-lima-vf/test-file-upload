@@ -1,11 +1,13 @@
 <template>
     <div v-bind:id="id">
+        <button @click="selectFiles" v-bind:class="classes">{{ label }}</button>
         <input class="file-input" type="file" multiple v-bind:disabled="disabled" 
-            v-bind:accept="accept" @input="onChange($event)">
+            v-bind:accept="accept" @input="onChange($event)" title="Selecione">
         <div>
+            <label v-if="fileList.length > 0">{{ title }}</label>
             <ul class="file-list">
                 <li v-for="(file, index) in fileList" :key="index">
-                    <label class="mdi-paperclip" @click="remove(index)">X</label>
+                    <label @click="remove(index)">X</label>
                     <a :href="file.url" target="_blank">{{ file.name }}</a>
                 </li>
             </ul>
@@ -21,6 +23,15 @@
     .file-list li {
         list-style-type: none;
     }
+
+    .file-list li label {
+        color: red;
+        font-weight: 900;
+    }
+
+    input[type='file'] {
+        display: none;
+    }
 </style>
 
 <script>
@@ -31,9 +42,22 @@
         props: {
             id: {
                 type: String,
+                default: 'upload-files',
                 required: true,
             },
             accept: String,
+            label: {
+                type: String,
+                default: 'Select',
+            },
+            title: {
+                type: String,
+                default: 'Files to upload',
+            },
+            classes: {
+                type: String,
+                default: '',
+            },
         },
         emits: ["input", "update:modelValue"],
         setup(props, { emit }) {
@@ -64,10 +88,18 @@
 
             function onChange(e) {
                 for (const el of e.target.files) {
-                    const file = new UploadFile(el, fileList.value.length);
-                    add(file);
+                    let ext = '.' + el.name.split('.').pop();
+                    if (props.accept.indexOf(ext) >= 0) {
+                        const file = new UploadFile(el, fileList.value.length);
+                        add(file);
+                    }
                 }
                 recreateList();
+            }
+
+            function selectFiles() {
+                let e = document.getElementById(props.id).children[1];
+                e.click();
             }
 
             return {
@@ -75,6 +107,7 @@
                 files: filesList.value,
                 remove,
                 onChange,
+                selectFiles,
             };
         },
     });
