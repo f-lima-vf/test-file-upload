@@ -21,6 +21,7 @@
     import { defineComponent, ref  } from 'vue'
     import UploadFile from './UploadFile.vue';
     import UploadFileList from './UploadFileList.vue';
+    import axios from 'axios';
     
     export default defineComponent({
         props: {
@@ -81,6 +82,23 @@
             },
             onRemove(e) {
                 this.remove(e.detail.item);
+            },
+            uploadFiles() {
+                for (let file of this.files) {
+                    const formData = new FormData();
+                    formData.append('file', file);
+                    
+                    axios.post('/upload', formData)
+                      .then(response => {
+                        // Handle success
+                        console.log(response);
+                      })
+                      .catch(error => {
+                        // Handle error
+                        console.log(error);
+                      });
+
+                }
             }
         },
         mounted() {
