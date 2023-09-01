@@ -1,6 +1,7 @@
 <template>
   <div>
-    <v-file-list-input @input="onChange($event)" id="primeiro" accept=".txt, .doc, .docx, .xls, .xlsx, .png, .jpeg, .tiff"></v-file-list-input>
+    <v-file-list-input @input="onChange($event)" id="primeiro" accept=".txt, .doc">
+    </v-file-list-input>
   </div>
   <p>{{ value01 }}</p>
 </template>
