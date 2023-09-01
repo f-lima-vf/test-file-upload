@@ -1,7 +1,7 @@
 <template>
     <div v-bind:id="id">
-        <input class="file-input" type="file" multiple v-bind:disabled="disabled" v-bind:accept="accept"
-            @input="onChange($event)">
+        <input class="file-input" type="file" multiple v-bind:disabled="disabled" 
+            v-bind:accept="accept" @input="onChange($event)">
         <div>
             <ul class="file-list">
                 <li v-for="(file, index) in fileList" :key="index">
