@@ -1,44 +1,44 @@
 <template>
   <div>
-    <v-file-list-input @input="onChange($event)" id="primeiro" accept=".txt, .doc, .docx, .xls, .xlsx, .png, .jpeg, .tiff"></v-file-list-input>
+    <VFileListInput @input="onChange" id="primeiro" accept="accept" v-model="value01">
+    </VFileListInput>
   </div>
-  <p>{{ value01 }}</p>
+  <p>HelloWorld</p>
+  <ul class="file-list">
+      <li v-for="(file, index) in value01" :key="index">
+          <span>{{ file.name }} ({{ file.size }})</span>
+      </li>
+  </ul>
 </template>
 
+<style>
+  body {
+    background-color: whitesmoke;
+  }
+</style>
+
 <script>
-//import { ref } from 'vue'
-import VFileListInput from './FileListInput.vue'
-import UploadFileList from './UploadFileList.vue'
+import { ref } from 'vue'
+import VFileListInput from './file-input/FileListInput.vue'
 
 export default {
   name: 'HelloWorld',
-  props: {
-    accept: {
-      type: String,
-      default: '.txt, .csv, .md, .doc'
-    }
-  },
   setup() {
-    let value01 = new UploadFileList()
+    const accept = ref('.txt, .csv, .md, .doc')
+    const value01 = ref([]);
+
+    function onChange(newValue) {
+      value01.value = newValue;
+    }
 
     return {
-      value01
-    }
+      accept,
+      value01,
+      onChange,
+    };
   },
   components: {
-    VFileListInput
+    VFileListInput,
   },
-  methods: {
-    onChange(event) {
-      this.value01 = event.target.value
-    },
-  },
-}
+};
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-  body {
-    background-color: darkblue;
-  }
-</style>

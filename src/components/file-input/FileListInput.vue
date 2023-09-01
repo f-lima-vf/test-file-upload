@@ -1,0 +1,81 @@
+<template>
+    <div v-bind:id="id">
+        <input class="file-input" type="file" multiple v-bind:disabled="disabled" 
+            v-bind:accept="accept" @input="onChange($event)">
+        <div>
+            <ul class="file-list">
+                <li v-for="(file, index) in fileList" :key="index">
+                    <label class="mdi-paperclip" @click="remove(index)">X</label>
+                    <a :href="file.url" target="_blank">{{ file.name }}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</template>
+
+<style>
+    .file-list label {
+        padding: 2mm;
+    }
+
+    .file-list li {
+        list-style-type: none;
+    }
+</style>
+
+<script>
+    import { defineComponent, ref } from 'vue';
+    import UploadFile from './UploadFile.vue';
+
+    export default defineComponent({
+        props: {
+            id: {
+                type: String,
+                required: true,
+            },
+            accept: String,
+        },
+        emits: ["input", "update:modelValue"],
+        setup(props, { emit }) {
+            const fileList = ref([]);
+            const filesList = ref([]);
+
+            function recreateList() {
+                const fs = [];
+                let i = 0;
+                for (const f of fileList.value) {
+                    f.index = i++;
+                    fs.push(f.file);
+                }
+                filesList.value = fs;
+                emit('input', fs);
+                emit('update:modelValue', fs)
+            }
+
+            function add(file) {
+                fileList.value.push(file);
+                recreateList();
+            }
+
+            function remove(fileIndex) {
+                fileList.value = fileList.value.filter((el) => el.index !== fileIndex);
+                recreateList();
+            }
+
+            function onChange(e) {
+                for (const el of e.target.files) {
+                    const file = new UploadFile(el, fileList.value.length);
+                    add(file);
+                }
+                recreateList();
+            }
+
+            return {
+                fileList,
+                files: filesList.value,
+                remove,
+                onChange,
+            };
+        },
+    });
+</script>
