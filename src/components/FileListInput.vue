@@ -1,6 +1,6 @@
 <template>
     <div v-bind:id="this.id">
-        <input class="file-input" type="file" multiple v-bind:disabled="disabled" v-bind:accept="accept" v-on:change="onChange">
+        <input class="file-input" type="file" multiple v-bind:disabled="disabled" v-bind:accept="accept" @input="onChange($event)">
         <div>
             <ul class="file-list">
         </ul>
@@ -30,7 +30,10 @@
             },
             accept: String
         },
-        setup() {
+        emits: ["input", "update:modelValue"],
+        setup(props, { emit }) {
+            emit('input');
+            emit('update:modelValue');
             let fileList = ref([]);
 
             fileList = [];
@@ -63,7 +66,6 @@
                 });
             },
             onChange(e) {
-                e.preventDefault();
                 for (let el of e.target.files) {
                     let file = new UploadFile(el);
                     this.add(file);
@@ -73,8 +75,9 @@
                     fs.list.push(f.file);
                 }
                 this.files = fs;
+                this.modelValue = fs;
                 //this.processFiles(e.target.files);
-                return this.modelValue
+                e.preventDefault();
             },
             onRemove(e) {
                 this.remove(e.detail.item);
