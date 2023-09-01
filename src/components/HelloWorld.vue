@@ -19,7 +19,7 @@
 
 <script>
 import { ref } from 'vue'
-import VFileListInput from './FileListInput.vue'
+import VFileListInput from './file-input/FileListInput.vue'
 
 export default {
   name: 'HelloWorld',
