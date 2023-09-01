@@ -38,9 +38,6 @@
         },
         emits: ["input", "update:modelValue"],
         setup(props, { emit }) {
-            emit('input')
-            emit('update:modelValue')
-
             const fileList = ref([]);
 
             function add(file) {
@@ -61,9 +58,11 @@
                     fs.push(f.file);
                 }
                 this.files = fs;
+                emit('input', fs);
+                emit('update:modelValue', fs)
                 // this.modelValue = fs; // You might need to emit an event if you're using v-model
                 // this.processFiles(e.target.files);
-                e.preventDefault();
+                //e.preventDefault();
             }
 
             async function uploadFiles() {
