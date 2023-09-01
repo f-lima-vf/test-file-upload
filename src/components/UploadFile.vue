@@ -1,62 +1,72 @@
 <script>
-    export default class {
-        constructor(file) {
-            this._file = file;
-            this._index = -1;
-            this._name = file.name;
-            this._type = file.type;
-            this._url  = URL.createObjectURL(file);
-            this._size = file.size;
-            this._bytesRead = 0;
-            this._bytes = [];
-        }
-        get file() {
-            return this._file;
-        }
-        set index(value) {
-            this._index = value;
-        }
-        get index() {
-            return this._index;
-        }
-        set name(value) {
-            this._name = value;
-        }
-        get name() {
-            return this._name;
-        }
-        set type(value) {
-            this._type = value;
-        }
-        get type() {
-            return this._type;
-        }
-        set url(value) {
-            this._url = value;
-        }
-        get url() {
-            return this._url;
-        }
-        set size(value) {
-            this._size = value;
-        }
-        get size() {
-            return this._size;
-        }
-        set bytesRead(value) {
-            this._bytesRead = value;
-        }
-        get bytesRead() {
-            return this._bytesRead;
-        }
-        set bytes(value) {
-            this._bytes = value;
-        }
-        get bytes() {
-            return this._bytes;
-        }
-        get percentDone() {
-            return Math.ceil(this._bytesRead * 100 / this._size);
-        }
-    }
+import { ref, computed } from 'vue';
+
+export default function UploadFile(file) {
+  const _file = ref(file);
+  const _index = ref(-1);
+  const _name = ref(file.name);
+  const _type = ref(file.type);
+  const _url = ref(URL.createObjectURL(file));
+  const _size = ref(file.size);
+  const _bytesRead = ref(0);
+  const _bytes = ref([]);
+
+  const fileRef = computed(() => _file.value);
+  const index = computed({
+    get: () => _index.value,
+    set: (value) => {
+      _index.value = value;
+    },
+  });
+  const name = computed({
+    get: () => _name.value,
+    set: (value) => {
+      _name.value = value;
+    },
+  });
+  const type = computed({
+    get: () => _type.value,
+    set: (value) => {
+      _type.value = value;
+    },
+  });
+  const url = computed({
+    get: () => _url.value,
+    set: (value) => {
+      _url.value = value;
+    },
+  });
+  const size = computed({
+    get: () => _size.value,
+    set: (value) => {
+      _size.value = value;
+    },
+  });
+  const bytesRead = computed({
+    get: () => _bytesRead.value,
+    set: (value) => {
+      _bytesRead.value = value;
+    },
+  });
+  const bytes = computed({
+    get: () => _bytes.value,
+    set: (value) => {
+      _bytes.value = value;
+    },
+  });
+
+  const percentDone = computed(() => Math.ceil(_bytesRead.value * 100 / _size.value));
+
+  return {
+    file: fileRef,
+    index,
+    name,
+    type,
+    url,
+    size,
+    bytesRead,
+    bytes,
+    percentDone,
+  };
+}
 </script>
