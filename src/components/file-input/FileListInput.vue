@@ -1,5 +1,5 @@
 <template>
-    <div v-bind:id="id">
+    <div v-bind:id="id" class="class">
         <button @click="selectFiles">{{ label }}</button>
         <input class="file-input" type="file" multiple v-bind:disabled="disabled" 
             v-bind:accept="accept" @input="onChange($event)" title="Selecione">
@@ -42,6 +42,7 @@
         props: {
             id: {
                 type: String,
+                default: 'upload-files',
                 required: true,
             },
             accept: String,
@@ -52,6 +53,10 @@
             title: {
                 type: String,
                 default: 'Files to upload',
+            },
+            class: {
+                type: String,
+                default: '',
             },
         },
         emits: ["input", "update:modelValue"],
